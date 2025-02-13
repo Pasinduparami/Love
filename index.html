@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Romantic Yes & No Buttons</title>
+    <style>
+        /* Full-screen colorful animated background */
+        body {
+            background: linear-gradient(-45deg, #ff9a9e, #fad0c4, #ffdde1, #ff6f61, #ff4081, #ffc107);
+            background-size: 400% 400%;
+            animation: gradientMove 8s infinite alternate;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            flex-direction: column;
+            position: relative;
+            overflow: hidden;
+        }
+
+        /* Background animation */
+        @keyframes gradientMove {
+            0% { background-position: 0% 50%; }
+            100% { background-position: 100% 50%; }
+        }
+
+        /* Glowing button styles */
+        button {
+            font-size: 20px;
+            padding: 14px 28px;
+            border: none;
+            border-radius: 30px;
+            cursor: pointer;
+            margin: 15px;
+            font-weight: bold;
+            transition: all 0.3s ease-in-out;
+            position: relative;
+            box-shadow: 0px 5px 15px rgba(255, 0, 150, 0.5);
+            color: white;
+        }
+
+        /* Yes Button - Colorful Glow */
+        #yesButton {
+            background: linear-gradient(45deg, #ff4081, #ff80ab, #ff1744);
+        }
+        #yesButton:hover {
+            background: linear-gradient(45deg, #e91e63, #ff4081);
+            transform: scale(1.2);
+            box-shadow: 0px 8px 20px rgba(255, 0, 150, 0.7);
+        }
+
+        /* No Button - Colorful Glow */
+        #noButton {
+            background: linear-gradient(45deg, #ff6f61, #ff9800, #ff3d00);
+        }
+        #noButton:hover {
+            background: linear-gradient(45deg, #ff5722, #ff7043);
+            transform: scale(1.2);
+            box-shadow: 0px 8px 20px rgba(255, 94, 0, 0.7);
+        }
+
+        /* Floating hearts animation */
+        .heart {
+            position: absolute;
+            font-size: 24px;
+            color: rgba(255, 50, 100, 0.9);
+            animation: floatUp 5s linear infinite;
+        }
+
+        @keyframes floatUp {
+            0% {
+                transform: translateY(0);
+                opacity: 1;
+            }
+            100% {
+                transform: translateY(-100vh);
+                opacity: 0;
+            }
+        }
+
+        /* Romantic Pop-up */
+        .popup {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: linear-gradient(45deg, #ff4081, #ff80ab, #ff1744);
+            color: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 10px 25px rgba(255, 0, 150, 0.7);
+            font-size: 22px;
+            text-align: center;
+            display: none;
+            z-index: 1000;
+            animation: fadeIn 0.5s ease-in-out;
+        }
+
+        /* Fade-in animation for pop-up */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translate(-50%, -55%); }
+            to { opacity: 1; transform: translate(-50%, -50%); }
+        }
+
+        /* Close button for pop-up */
+        .popup button {
+            margin-top: 15px;
+            padding: 10px 20px;
+            background: white;
+            color: #ff4081;
+            border: none;
+            font-size: 18px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: bold;
+            box-shadow: 0px 4px 10px rgba(255, 0, 150, 0.4);
+        }
+
+        /* Close button hover effect */
+        .popup button:hover {
+            background: #ff80ab;
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+    <!-- Romantic Buttons -->
+    <button id="yesButton" onclick="showPopup()">Yes</button>
+    <button id="noButton" onclick="increaseYesSize()">No</button>
+
+    <!-- Romantic Pop-up -->
+    <div id="popup" class="popup">
+        💖 **My Heart is Yours!** 💖 <br>
+        You are the most beautiful part of my world! 🌍💕 <br>
+        I can't wait to see you soon! 😘  
+        <button onclick="closePopup()">Okay 💕</button>
+    </div>
+
+    <script>
+        let fontSize = 20; // Initial font size for "Yes" button
+        let paddingSize = 14; // Initial padding for "Yes" button
+
+        function increaseYesSize() {
+            let yesButton = document.getElementById('yesButton');
+            fontSize += 5; // Increase font size
+            paddingSize += 5; // Increase padding
+            yesButton.style.fontSize = fontSize + "px";
+            yesButton.style.padding = paddingSize + "px " + (paddingSize + 10) + "px";
+        }
+
+        function showPopup() {
+            document.getElementById('popup').style.display = "block";
+        }
+
+        function closePopup() {
+            document.getElementById('popup').style.display = "none";
+        }
+
+        // Function to create floating hearts
+        function createHeart() {
+            const heart = document.createElement("div");
+            heart.classList.add("heart");
+            heart.innerHTML = "❤️";
+            document.body.appendChild(heart);
+
+            // Random position
+            heart.style.left = Math.random() * window.innerWidth + "px";
+            heart.style.top = "100vh";
+
+            // Random animation duration
+            let duration = Math.random() * 5 + 3; // Between 3s to 8s
+            heart.style.animation = `floatUp ${duration}s linear infinite`;
+
+            // Remove heart after animation
+            setTimeout(() => {
+                heart.remove();
+            }, duration * 1000);
+        }
+
+        // Generate floating hearts every 500ms
+        setInterval(createHeart, 500);
+    </script>
+
+</body>
+</html>
